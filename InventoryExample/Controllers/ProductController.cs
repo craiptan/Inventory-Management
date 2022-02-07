@@ -40,7 +40,7 @@ namespace InventoryExample.Controllers
                 product.isActive = model.isActive;
                 product.CreatedBy = "get logged in user";
                 product.CreatedOn = DateTime.Now;
-                var createdProduct = await productRepo.CreateUpdateProductAsync(product);
+                var createdProduct = await productRepo.CreateProductAsync(product);
                 if(createdProduct)
                 {
                     return Created(nameof(GetProducts), new { id = product.ProductCode });
@@ -120,7 +120,7 @@ namespace InventoryExample.Controllers
                     // update product quantity
                     var remainingQuantity = product.Quantity - DetailModel.Quantity;
                     product.Quantity = remainingQuantity;
-                    productRepo.CreateUpdateProductAsync(product);
+                    productRepo.Update(product);
                 }
 
                 return Ok(SaleHeaderId);
@@ -160,7 +160,7 @@ namespace InventoryExample.Controllers
                     // update product quantity
                     var remainingQuantity = product.Quantity + DetailModel.Quantity;
                     product.Quantity = remainingQuantity;
-                    productRepo.CreateUpdateProductAsync(product);
+                    productRepo.Update(product);
                 }
 
                 return Ok(PurchaseHeaderId);

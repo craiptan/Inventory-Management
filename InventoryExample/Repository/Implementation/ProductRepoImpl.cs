@@ -13,7 +13,7 @@ namespace InventoryExample.Repository.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> CreateUpdateProductAsync(Product product)
+        public async Task<bool> CreateProductAsync(Product product)
         {
             try
             {
@@ -81,6 +81,19 @@ namespace InventoryExample.Repository.Implementation
                 return product;
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public Product Update(Product product)
+        {
+            try
+            {
+                dbContext.Products.Update(product);
+                dbContext.SaveChanges();
+                return product;
+            }catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
